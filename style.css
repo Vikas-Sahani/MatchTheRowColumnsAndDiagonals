@@ -1,0 +1,224 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100vh;
+    width: 100vh;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 90vh;
+    border: 2px solid black;
+  }
+
+  #coverCenter{
+    position: absolute;
+    border:2px solid rgb(225, 61, 135);
+    height: 30vh;
+    width: 30vh;
+    border-radius: 50%;
+    background-color: white;
+    z-index: 2;
+  }
+  
+  #horizontal{
+    border: 2px solid red;
+    height: 10vh;
+    width: 90vh;
+    border-radius: 50px;
+  }
+  
+  #leftHorizontal{
+    background-color: blueviolet;
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    left:0.2%;
+  }
+  
+  #rightHorizontal{
+    background-color: rgb(41, 19, 62);
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    left:80vh;
+  }
+  
+  #vertical{
+    border: 2px solid rgb(0, 4, 255);
+    height: 90vh;
+    width: 10vh;
+    position: absolute;
+    border-radius: 50px;
+
+  }
+  #topVertical{
+    background-color: blueviolet;
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    top:0%;
+  }
+
+  #centerVertical{
+    background-color: yellow;
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    top:44.5%;
+    z-index: 3;
+  }
+  
+  #bottomVertical{
+    background-color: rgb(12, 4, 20);
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0%;
+  }
+  
+  #left_vertical{
+    border: 2px solid rgb(0, 255, 217);
+    transform: rotate(45deg);
+    height: 10vh;
+    width: 115vh;
+    position: absolute;
+    border-radius: 50px;
+
+  }
+  
+  #topLeft_vertical{
+    background-color: rgb(122, 56, 188);
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    top: 0%;
+  }
+  
+  #bottomLeft_vertical{
+    background-color: rgb(29, 14, 44);
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    left: 91.5%;
+  }
+  
+  #right_vertical{
+    border: 2px solid rgb(225, 61, 135);
+    transform: rotate(-45deg);
+    height: 10vh;
+    width: 115vh;
+    position: absolute;
+    border-radius: 50px;
+
+  }
+  
+  #topRight_vertical{
+    background-color: rgb(126, 60, 192);
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    top:0%
+  }
+  
+  #bottomRight_vertical{
+    background-color: rgb(38, 18, 57);
+    height: 10vh;
+    width: 10vh;
+    border-radius: 50%;
+    position: absolute;
+    left:91.5%;
+  }
+  
+  span{
+    display: none;
+  }
+
+  
+  /* span:hover{
+    display:block;
+  } */
+
+  .Hide{
+    display: none;
+  }
+  
+  .West{
+    border: 2px solid green;
+    font-size: 5vh;
+    position: absolute;
+    left: -5vh;
+    top: 0vh;
+  }
+
+  .East{
+    border: 2px solid red;
+    font-size: 5vh;
+    position: absolute;
+    left: 10.5vh;
+    top: 0vh;
+  }
+
+  .South{
+    border: 2px solid blue;
+    font-size: 5vh;
+    position: absolute;
+    left: 3vh;
+    top: 10vh;
+  }
+
+  .North{
+    border: 2px solid brown;
+    font-size: 5vh;
+    position: absolute;
+    left: 3vh;
+    top: -7.5vh;
+  }
+
+  .North_West{
+    font-size: 5vh;
+    position: absolute;
+    left: -5.5vh;
+    top: -7vh;
+  }
+  
+  .South_West{
+    font-size: 5vh;
+    position: absolute;
+    left: -5.5vh;
+    top: 10vh;
+  }
+
+  .North_East{
+    font-size: 5vh;
+    position: absolute;
+    left: 12vh;
+    top: -7vh;
+  }
+
+  .South_East{
+    font-size: 5vh;
+    position: absolute;
+    left: 12vh;
+    top: 10vh;
+  }
