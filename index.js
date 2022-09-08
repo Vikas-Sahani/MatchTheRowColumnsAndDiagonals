@@ -1,38 +1,55 @@
-let topVertical = document.querySelector("#topVertical");
-let bottomVertical = document.querySelector("#bottomVertical");
-let centerVertical = document.querySelector("#centerVertical")
-let spans = document.querySelector("span");
 let vertical = document.querySelector("#vertical");
+let topVertical = document.querySelector("#topVertical");
+let centerVertical = document.querySelector("#centerVertical");
+let bottomVertical = document.querySelector("#bottomVertical");
+let leftHorizontal = document.querySelector("#leftHorizontal");
+let rightHorizontal = document.querySelector("#rightHorizontal");
 
+const mouseEnterFun = function (e) {
+  let n = e.target.children.length;
+  for (let i = 0; i < n; i++) {
+    e.target.children[i].classList.add("Visible");
+  }
+};
 
-topVertical.addEventListener("mouseenter",function(e){
-    let n = e.target.children.length
-    for(let i =0; i<n; i++){
-        e.target.children[i].classList.add("Visible");
-    }
-})
+const mouseLeaveFun = function (e) {
+  let n = e.target.children.length;
+  let bgColor = window.getComputedStyle(e.target).backgroundColor;
+  for (let i = 0; i < n; i++) {
+    setTimeout(() => {
+      e.target.children[i].addEventListener("click", function (ev) {
+        if (!ev.target.parent.classList.contains("Hide")) {
+          console.log(ev.target);
+          e.target.classList.add("Hide");
+        }
+        document.getElementById(
+          ev.target.getAttribute("data-id")
+        ).style.backgroundColor = bgColor;
+        // centerVertical.style.backgroundColor = bgColor
+      });
+      e.target.children[i].classList.add("Hide");
+    }, 1000);
+  }
 
-topVertical.addEventListener("mouseleave",function(e){
-    let n = e.target.children.length
-    for(let i =0; i<n; i++){
-        e.target.children[i].classList.add("Hide");
-    }
+  for (let i = 0; i < n; i++) {
+    setTimeout(() => {
+      e.target.children[i].classList.remove("Visible");
+      e.target.children[i].classList.remove("Hide");
+    }, 1000);
+  }
+};
 
-    for(let i =0; i<n; i++){
-        e.target.children[i].classList.remove("Visible");
-        e.target.children[i].classList.remove("Hide");
-    }
-})
+topVertical.addEventListener("mouseenter", mouseEnterFun);
+topVertical.addEventListener("mouseleave", mouseLeaveFun);
 
-bottomVertical.addEventListener("click",function(e){
-    console.log(e.target)
-})
+centerVertical.addEventListener("mouseenter", mouseEnterFun);
+centerVertical.addEventListener("mouseleave", mouseLeaveFun);
 
-centerVertical.addEventListener("click", function(e){
-    console.log(e.target)
-})
+bottomVertical.addEventListener("mouseenter", mouseEnterFun);
+bottomVertical.addEventListener("mouseleave", mouseLeaveFun);
 
-// centerVertical.addEventListener("click",function(e){
-    // console.log(centerVertical)
-//     e.target.style.backgroundColor="red"
-// })
+leftHorizontal.addEventListener("mouseenter", mouseEnterFun);
+leftHorizontal.addEventListener("mouseleave", mouseLeaveFun);
+
+rightHorizontal.addEventListener("mouseenter", mouseEnterFun);
+rightHorizontal.addEventListener("mouseleave", mouseLeaveFun);
