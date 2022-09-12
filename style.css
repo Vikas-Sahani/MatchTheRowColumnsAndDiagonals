@@ -13,141 +13,106 @@ body {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
-  
+
   .container{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
-    width: 90vh;
+    border-radius: 20%;
+    height: 95vh;
+    width: 95vh;
     border: 2px solid black;
   }
 
-  #coverCenter{
-    position: absolute;
-    border:2px solid rgb(225, 61, 135);
-    height: 30vh;
-    width: 30vh;
+  #alternativeTopVertical,#alternativeCenterVertical, #alternativeBottomVertical, 
+  #alternativeLeftHorizontal,#alternativeRightHorizontal,
+  #alternativeTopLeft_vertical,  #alternativeTopRight_vertical,  
+  #alternativeBottomLeft_vertical, #alternativeBottomRight_vertical{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    background-color: white;
-    z-index: 2;
+    height: 10vh;
+    width: 10vh;
+    border: 2px solid rgb(0, 0, 0);
+  }
+
+  #topVertical, #centerVertical, #bottomVertical,
+  #leftHorizontal, #rightHorizontal,
+  #topLeft_vertical,#bottomLeft_vertical,
+  #topRight_vertical,#bottomRight_vertical{
+    border: 2px solid blueviolet;
+    /* background-color: teal; */
+    height: 8vh;
+    width: 8vh;
+    border-radius: 50%;
   }
   
   #horizontal{
-    border: 2px solid red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
     height: 10vh;
     width: 90vh;
-    border-radius: 50px;
-  }
-  
-  #leftHorizontal{
-    background-color: blueviolet;
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    left:0.3%;
-  }
-  
-  #rightHorizontal{
-    background-color: rgb(41, 19, 62);
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    left:80vh;
+    border: 2px solid red;
   }
   
   #vertical{
-    border: 2px solid rgb(0, 4, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    flex-wrap: wrap;
     height: 90vh;
     width: 10vh;
+    border: 2px solid rgb(0, 4, 255);
     position: absolute;
-    border-radius: 50px;
-
   }
-  #topVertical{
-    background-color: blueviolet;
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    top:0%;
+
+  #alternativeTopVertical{
+    align-self: flex-start;
   }
 
   #centerVertical{
-    background-color: yellow;
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
+    background-color:none;
+    z-index: 4;
+  }
+  #alternativeCenterVertical{
+    align-self: center;
+    z-index: 1;
+    height: 27vh;
+    width: 27vh;
     position: absolute;
-    top:44.5%;
-    z-index: 3;
+    background-color: white;
   }
   
-  #bottomVertical{
-    background-color: rgb(12, 4, 20);
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 0%;
+  #alternativeBottomVertical{
+    align-self: flex-end;
   }
   
   #left_vertical{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
     border: 2px solid rgb(0, 255, 217);
     transform: rotate(45deg);
     height: 10vh;
     width: 115vh;
     position: absolute;
-    border-radius: 50px;
+  }
 
-  }
-  
-  #topLeft_vertical{
-    background-color: rgb(122, 56, 188);
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    top: 0%;
-  }
-  
-  #bottomLeft_vertical{
-    background-color: rgb(29, 14, 44);
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    left: 91.5%;
-  }
-  
   #right_vertical{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 50px;
     border: 2px solid rgb(225, 61, 135);
     transform: rotate(-45deg);
     height: 10vh;
     width: 115vh;
     position: absolute;
-    border-radius: 50px;
-
-  }
-  
-  #topRight_vertical{
-    background-color: rgb(126, 60, 192);
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    top:0%
-  }
-  
-  #bottomRight_vertical{
-    background-color: rgb(38, 18, 57);
-    height: 10vh;
-    width: 10vh;
-    border-radius: 50%;
-    position: absolute;
-    left:91.5%;
   }
   
   span{
@@ -156,71 +121,16 @@ body {
 
   
   .Visible{
-    display:block;
-    animation-duration: 4s;
+    visibility:visible;
+    /* display: block; */
   }
 
   .Hide{
-    display: none;
-    animation-duration: 4s;
+    visibility: hidden;
+    /* display: none; */
   }
   
-  .West{
-    border: 2px solid green;
+  .West,.East,.South,.North,.North_West,.South_West,.North_East,.South_East{
     font-size: 5vh;
-    position: absolute;
-    left: -5vh;
-    top: 0vh;
-  }
-
-  .East{
-    border: 2px solid red;
-    font-size: 5vh;
-    position: absolute;
-    left: 10.5vh;
-    top: 0vh;
-  }
-
-  .South{
-    border: 2px solid blue;
-    font-size: 5vh;
-    position: absolute;
-    left: 3vh;
-    top: 10vh;
-  }
-
-  .North{
-    border: 2px solid brown;
-    font-size: 5vh;
-    position: absolute;
-    left: 3vh;
-    top: -7.5vh;
-  }
-
-  .North_West{
-    font-size: 5vh;
-    position: absolute;
-    left: -5.5vh;
-    top: -7vh;
-  }
-  
-  .South_West{
-    font-size: 5vh;
-    position: absolute;
-    left: -5.5vh;
-    top: 10vh;
-  }
-
-  .North_East{
-    font-size: 5vh;
-    position: absolute;
-    left: 12vh;
-    top: -7vh;
-  }
-
-  .South_East{
-    font-size: 5vh;
-    position: absolute;
-    left: 12vh;
-    top: 10vh;
+    position: relative;
   }

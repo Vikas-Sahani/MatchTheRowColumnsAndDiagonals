@@ -1,76 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProjectGame</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- <h1>Project of ChildHood Game</h1> -->
-        <div class="container">
-            <div id="vertical">
-                <div id="topVertical">
-                    <span class="East">&rArr;</span>
-                    <span class="West">&lArr;</span>
-                    <span class="South" data-id="centerVertical">&dArr;</span>
-                </div>
-                <div id="bottomVertical">
-                    <span class="East">&rArr;</span>
-                    <span class="West">&lArr;</span>
-                    <span class="North" data-id="centerVertical">&uArr;</span>
-                </div>
-                <div id="centerVertical">
-                    <span class="East" data-id="rightHorizontal">&rArr;</span>
-                    <span class="West" data-id="leftHorizontal">&lArr;</span>
-                    <span class="North" data-id="topVertical">&uArr;</span>
-                    <span class="South" data-id="bottomVertical">&dArr;</span>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ProjectGame</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- <h1>Project of ChildHood Game</h1> -->
+            <div class="container">
+                <div id="vertical">
+                    <div id="alternativeTopVertical">
+                        <div id="topVertical"  class="Hide">
+                            <span class="East" style="left: 10vh;">&rArr;</span>
+                            <span class="West" style="left: -7vh; top: -7vh;">&lArr;</span>
+                            <span class="South" style="left: -3vh; top: 1.5vh;" data-id="centerVertical">&dArr;</span>
+                        </div>
+                    </div> 
+                    <div id="alternativeCenterVertical">
+                        <div id="centerVertical"  class="Hide">
+                            <span class="East" data-id="rightHorizontal" style="left: 10vh;top: 0vh;">⇒</span>
+                            <span class="West" data-id="leftHorizontal" style="left: -7vh;top: -7vh;">⇐</span>
+                            <span class="North" data-id="topVertical" style="left: -3vh;top: -15.5vh;">⇑</span>
+                            <span class="South" data-id="bottomVertical" style="left: 2vh;top: -5vh;">⇓</span>
 
-                    <!-- <span class="North_West"></span>
-                    <span class="North_East"></span>
-                    <span class="South_East"></span>
-                    <span class="South_West"></span> -->
+                            <span class="North_West" style="left: -8.5vh;top: -21vh;">⇖</span>
+                            <span class="North_East" style="left: 9vh;top: -28vh;">⇗</span>
+                            <span class="South_East" style="left: 4.5vh;top: -14vh;">⇘</span>
+                            <span class="South_West" style="left: -5vh;top: -21vh;">⇙</span>
+                        </div>
+                    </div> 
+                    <div id="alternativeBottomVertical">
+                        <div id="bottomVertical" class="Hide">                            
+                            <span class="East" style="left: 10vh;top: 0.5vh;">⇒</span>
+                            <span class="West" style="left: -7vh;top: -6.5vh;">⇐</span>
+                            <span class="North" style="left: -3vh;top: -16vh;" data-id="centerVertical">⇑</span></div>
+                    </div>
+                    
+                </div>
+                
+                <div id="horizontal">
+                    <div id="alternativeLeftHorizontal">
+                        <div id="leftHorizontal" class="Hide">
+                            <span class="East" style="left: 10vh;top: 0vh;" data-id="centerVertical">⇒</span>
+                            <span class="North" style="left: -3vh;top: -8vh;z-index: 1;">⇑</span>
+                            <span class="South" style="left: 2vh;top: 2vh;">⇓</span>
+                        </div>
+                    </div>
+                    <div id="alternativeRightHorizontal">
+                        <div id="rightHorizontal" class="Hide">
+                            <span class="West" style="left: -7vh;top: 0vh;" data-id="centerVertical">⇐</span>
+                            <span class="North" style="left: -3vh;top: -8vh;">⇑</span>
+                            <span class="South" style="left: 2vh;top: 2vh;">⇓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="left_vertical">
+                    <div id="alternativeTopLeft_vertical">
+                        <div id="topLeft_vertical" class="Hide">
+                            <span class="North_East" style="left: 5.5vh;top: -8vh;" data-id="topVertical">⇗</span>
+                            <span class="East" style="left: 11vh;top: -7vh;" data-id="centerVertical">⇒</span>
+                            <span class="South_East" style="left: 7vh;top: -6vh;" data-id="leftHorizontal">⇘</span>
+                        </div>
+                    </div>
+                    <div id="alternativeBottomLeft_vertical">
+                        <div id="bottomLeft_vertical" class="Hide">
+                            <span class="North_West" style="left: -4vh;top: -8vh;">⇖</span>
+                            <span class="West" style="left: -7vh;top: -7vh;" data-id="centerVertical">⇐</span>
+                            <span class="South_West" style="left: -2vh;top: -5vh;">⇙</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="right_vertical">
+                    <div id="alternativeTopRight_vertical">
+                        <div id="topRight_vertical" class="Hide">
+                            <span class="North_East" style="left: 6vh;top: -8vh;">⇗</span>
+                            <span class="East" style="left: 11vh;top: -7vh;z-index: 17;" data-id="centerVertical">⇒</span>
+                            <span class="South_East" style="left: 5vh;top: -6vh;">⇘</span>
+                        </div>
+                    </div>
+                    <div id="alternativeBottomRight_vertical">
+                        <div id="bottomRight_vertical" class="Hide">
+                            <span class="North_West" style="left: -3vh;top: -8vh;">⇖</span>
+                            <span class="West" style="left: -7vh;top: -7vh;" data-id="centerVertical">⇐</span>
+                            <span class="South_West" style="left: -2vh;top: -6vh;">⇙</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="horizontal">
-                <div id="leftHorizontal">
-                    <span class="East" data-id="centerVertical">&rArr;</span>
-                    <span class="North">&uArr;</span>
-                    <span class="South">&dArr;</span>
-                </div>
-                <div id="rightHorizontal">
-                    <span class="West" data-id="centerVertical">&lArr;</span>
-                    <span class="North">&uArr;</span>
-                    <span class="South">&dArr;</span>
-                </div>
-            </div>
-            <div id="left_vertical">
-                <div id="topLeft_vertical">
-                    <span class="North_East"></span>
-                    <span class="South_East"></span>
-                    <span class="East">&rArr;</span>
-                </div>
-                <div id="bottomLeft_vertical">
-                    <span class="West">&lArr;</span>
-                    <span class="North_West"></span>
-                    <span class="South_West"></span>
-                </div>
-            </div>
-            <div id="right_vertical">
-                <div id="topRight_vertical">
-                    <span class="East">&rArr;</span>
-                    <span class="North_East"></span>
-                    <span class="South_East"></span>
-                </div>
-                <div id="bottomRight_vertical">
-                    <span class="West">&lArr;</span>
-                    <span class="North_West"></span>
-                    <span class="South_West"></span>
-                </div>
-            </div>
-            <div id="coverCenter"></div>
-        </div>
-        <script src="index.js"></script>
-</body>
+            <script defer src="index.js"></script>
+    </body>
 </html>
