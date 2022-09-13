@@ -95,64 +95,81 @@ sideBgColrFun();
 const clrSideBgColr = setInterval(sideBgColrFun, 4000);
 // end of Side Dynamic Background Color
 
+// what will happen onClicking the circle
 alternativeArr.forEach((el) => {
   el.addEventListener("click", function () {
-    const targetedEl = el.children[0];
+    const targetedEl = this.children[0];
     targetedEl.classList.remove("Hide");
     targetedEl.classList.add("Visible");
     targetedEl.style.backgroundColor = player1Colr;
-    targetedEl.children[0].classList.remove("Hide");
-    targetedEl.children[0].classList.add("Visible");
-    console.log(targetedEl.children[0]);
+    // let n = targetedEl.children.length;
+    // for (let i = 0; i < n; i++) {
+    //   // targetedEl.children[i].classList.remove("Hide");
+    //   // targetedEl.children[i].classList.add("Visible");
+    // }
   });
 });
 
-// const mouseLeaveFun = function (e) {
-//   let n = e.target.children.length;
-//   const bgColor = window.getComputedStyle(e.target).backgroundColor;
-//   for (let i = 0; i < n; i++) {
-//     setTimeout(() => {
-//       e.target.children[i].addEventListener("click", function (ev) {
-//         const targetedEl = document.getElementById(
-//           ev.target.getAttribute("data-id")
-//         );
-//         if (targetedEl.classList.contains("Hide")) {
-//           targetedEl.classList.remove("Hide");
-//           targetedEl.classList.add("Visible");
-//           targetedEl.style.backgroundColor = bgColor;
-//           e.target.classList.add("Hide");
-//           console.log("if");
-//         } else {
-//           console.log("else");
-//           return;
-//         }
-//       });
-//       e.target.children[i].classList.add("Hide");
-//     }, 1000);
-//   }
+alternativeArr.forEach((el) => {
+  el.addEventListener("mouseenter", function () {
+    const targetedEl = this.children[0];
+    targetedEl.classList.remove("Hide");
+    targetedEl.classList.add("Visible");
+    targetedEl.style.backgroundColor = player1Colr;
+    let n = targetedEl.children.length;
+    for (let i = 0; i < n; i++) {
+      targetedEl.children[i].classList.remove("Hide");
+      targetedEl.children[i].classList.add("Visible");
+    }
+  });
+});
 
-//   for (let i = 0; i < n; i++) {
-//     setTimeout(() => {
-//       e.target.children[i].classList.remove("Visible");
-//       e.target.children[i].classList.remove("Hide");
-//     }, 1000);
-//   }
-// };
+const mouseLeaveFun = function () {
+  const targetedEl = this.children[0];
+  targetedEl.classList.remove("Visible");
+  targetedEl.classList.add("Hide");
+  let n = targetedEl.children.length;
+  console.log(targetedEl.children);
+  console.log(n);
+  // const bgColor = window.getComputedStyle(e.target).backgroundColor;
+  // for (let i = 0; i < n; i++) {
+  //   setTimeout(() => {
+  //     e.target.children[i].addEventListener("click", function (ev) {
+  //       const targetedEl = document.getElementById(
+  //         ev.target.getAttribute("data-id")
+  //       );
+  //       if (targetedEl.classList.contains("Hide")) {
+  //         targetedEl.classList.remove("Hide");
+  //         targetedEl.classList.add("Visible");
+  //         targetedEl.style.backgroundColor = bgColor;
+  //         e.target.classList.add("Hide");
+  //         console.log("if");
+  //       } else {
+  //         console.log("else");
+  //         return;
+  //       }
+  //     });
+  //     e.target.children[i].classList.add("Hide");
+  //   }, 1000);
+  // }
+
+  // for (let i = 0; i < n; i++) {
+  //   setTimeout(() => {
+  //     e.target.children[i].classList.remove("Visible");
+  //     e.target.children[i].classList.remove("Hide");
+  //   }, 1000);
+  // }
+};
 
 //
-// alternativeArr.forEach((el) => {
-//   el.addEventListener("mouseenter", function (e) {
-//     console.log(el);
-//     el.children[0].classList.remove("Hide");
-//     el.children[0].classList.add("Visible");
-//   });
-// });
-
-//
-// alternativeArr.forEach((el) => {
-//   el.addEventListener("mouseleave", function (e) {
-//     console.log(el);
-//     el.children[0].classList.remove("Visible");
-//     el.children[0].classList.add("Hide");
-//   });
-// });
+alternativeArr.forEach((el) => {
+  el.addEventListener(
+    "mouseleave",
+    mouseLeaveFun
+    // function (e) {
+    //   //     console.log(el);
+    //   el.children[0].classList.remove("Visible");
+    //   el.children[0].classList.add("Hide");
+    // }
+  );
+});

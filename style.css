@@ -115,19 +115,19 @@ body {
     position: absolute;
   }
   
-  span{
+  /* span{
     display: none;
-  }
+  } */
 
   
   .Visible{
-    visibility:visible;
-    /* display: block; */
+    /* visibility:visible; */
+    display: block;
   }
 
   .Hide{
-    visibility: hidden;
-    /* display: none; */
+    /* visibility: hidden; */
+    display: none;
   }
   
   .West,.East,.South,.North,.North_West,.South_West,.North_East,.South_East{
