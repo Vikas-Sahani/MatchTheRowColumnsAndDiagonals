@@ -96,17 +96,20 @@ const clrSideBgColr = setInterval(sideBgColrFun, 4000);
 // end of Side Dynamic Background Color
 
 // what will happen onClicking the circle
+let isClicked = false;
 alternativeArr.forEach((el) => {
   el.addEventListener("click", function () {
+    isClicked = true;
     const targetedEl = this.children[0];
     targetedEl.classList.remove("Hide");
     targetedEl.classList.add("Visible");
     targetedEl.style.backgroundColor = player1Colr;
-    // let n = targetedEl.children.length;
-    // for (let i = 0; i < n; i++) {
-    //   // targetedEl.children[i].classList.remove("Hide");
-    //   // targetedEl.children[i].classList.add("Visible");
-    // }
+    let n = targetedEl.children.length;
+    for (let i = 0; i < n; i++) {
+      console.log(targetedEl);
+      // targetedEl.children[i].classList.remove("Hide");
+      // targetedEl.children[i].classList.add("Visible");
+    }
   });
 });
 
@@ -126,11 +129,21 @@ alternativeArr.forEach((el) => {
 
 const mouseLeaveFun = function () {
   const targetedEl = this.children[0];
-  targetedEl.classList.remove("Visible");
-  targetedEl.classList.add("Hide");
-  let n = targetedEl.children.length;
-  console.log(targetedEl.children);
-  console.log(n);
+  if (!isClicked) {
+    targetedEl.classList.remove("Visible");
+    targetedEl.classList.add("Hide");
+  } else if (isClicked) {
+    let n = targetedEl.children.length;
+    for (let i = 0; i < n; i++) {
+      setTimeout(() => {
+        targetedEl.children[i].classList.remove("Visible");
+        targetedEl.children[i].classList.remove("Hide");
+        console.log(targetedEl);
+      }, 1000);
+    }
+  }
+  // let n = targetedEl.children.length;
+
   // const bgColor = window.getComputedStyle(e.target).backgroundColor;
   // for (let i = 0; i < n; i++) {
   //   setTimeout(() => {
@@ -153,23 +166,17 @@ const mouseLeaveFun = function () {
   //   }, 1000);
   // }
 
+  // let n = targetedEl.children.length;
   // for (let i = 0; i < n; i++) {
   //   setTimeout(() => {
-  //     e.target.children[i].classList.remove("Visible");
-  //     e.target.children[i].classList.remove("Hide");
+  //     targetedEl.children[i].classList.remove("Visible");
+  //     targetedEl.children[i].classList.remove("Hide");
+  //     console.log(targetedEl);
   //   }, 1000);
   // }
 };
 
 //
 alternativeArr.forEach((el) => {
-  el.addEventListener(
-    "mouseleave",
-    mouseLeaveFun
-    // function (e) {
-    //   //     console.log(el);
-    //   el.children[0].classList.remove("Visible");
-    //   el.children[0].classList.add("Hide");
-    // }
-  );
+  el.addEventListener("mouseleave", mouseLeaveFun);
 });
