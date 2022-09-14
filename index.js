@@ -50,15 +50,15 @@ const alternativeArr = [
 ];
 
 const arr = [
-  topVertical,
-  bottomRight_vertical,
-  rightHorizontal,
-  bottomLeft_vertical,
-  bottomVertical,
-  topRight_vertical,
-  leftHorizontal,
-  topLeft_vertical,
-  centerVertical,
+  { topVertical: false },
+  { bottomRight_vertical: false },
+  { rightHorizontal: false },
+  { bottomLeft_vertical: false },
+  { bottomVertical: false },
+  { topRight_vertical: false },
+  { leftHorizontal: false },
+  { topLeft_vertical: false },
+  { centerVertical: false },
 ];
 
 // Center Dynamic Background Color
@@ -69,20 +69,26 @@ const clrCntrBgColr = setInterval(function (e) {
 }, 100);
 // end of Center Dynamic Background Color
 
-alternativeCenterVertical.addEventListener("click", function () {
+alternativeCenterVertical.addEventListener("click", function (e) {
+  if (arr["centerVertical"]) {
+    return;
+  }
   clearInterval(clrCntrBgColr);
   alternativeCenterVertical.style.backgroundColor = "white";
+  const bgColor = window.getComputedStyle(e.target).backgroundColor;
+  alternativeCenterVertical.children[0].style.backgroundColor = bgColor;
+  arr["centerVertical"] = true;
 });
 
 // Side Dynamic Background Color
 const sideBgColrFun = function () {
-  let bgColor = `rgb(${Math.floor(Math.random() * 255)} ${Math.floor(
+  const dynamicBgColor = `rgb(${Math.floor(Math.random() * 255)} ${Math.floor(
     Math.random() * 255
   )} ${Math.floor(Math.random() * 255)})`;
-  player1Colr = bgColor;
+  player1Colr = dynamicBgColor;
   for (let i = 0; i < alternativeArr.length - 1; i++) {
     let clrId = setTimeout(function (e) {
-      alternativeArr[i].style.backgroundColor = bgColor;
+      alternativeArr[i].style.backgroundColor = dynamicBgColor;
     }, i * 500);
 
     setTimeout(function (e) {
@@ -95,88 +101,93 @@ sideBgColrFun();
 const clrSideBgColr = setInterval(sideBgColrFun, 4000);
 // end of Side Dynamic Background Color
 
-// what will happen onClicking the circle
-let isClicked = false;
-alternativeArr.forEach((el) => {
-  el.addEventListener("click", function () {
-    isClicked = true;
-    const targetedEl = this.children[0];
-    targetedEl.classList.remove("Hide");
-    targetedEl.classList.add("Visible");
-    targetedEl.style.backgroundColor = player1Colr;
-    let n = targetedEl.children.length;
-    for (let i = 0; i < n; i++) {
-      console.log(targetedEl);
-      // targetedEl.children[i].classList.remove("Hide");
-      // targetedEl.children[i].classList.add("Visible");
-    }
-  });
-});
-
 alternativeArr.forEach((el) => {
   el.addEventListener("mouseenter", function () {
     const targetedEl = this.children[0];
-    targetedEl.classList.remove("Hide");
-    targetedEl.classList.add("Visible");
-    targetedEl.style.backgroundColor = player1Colr;
-    let n = targetedEl.children.length;
+    const n = targetedEl.children.length;
     for (let i = 0; i < n; i++) {
       targetedEl.children[i].classList.remove("Hide");
       targetedEl.children[i].classList.add("Visible");
     }
+    if (arr[targetedEl.id]) {
+      return;
+    }
+    targetedEl.classList.remove("Hide");
+    targetedEl.classList.add("Visible");
+    targetedEl.style.backgroundColor = player1Colr;
   });
 });
 
-const mouseLeaveFun = function () {
-  const targetedEl = this.children[0];
-  if (!isClicked) {
-    targetedEl.classList.remove("Visible");
-    targetedEl.classList.add("Hide");
-  } else if (isClicked) {
-    let n = targetedEl.children.length;
-    for (let i = 0; i < n; i++) {
-      setTimeout(() => {
-        targetedEl.children[i].classList.remove("Visible");
-        targetedEl.children[i].classList.remove("Hide");
-        console.log(targetedEl);
-      }, 1000);
+// what will happen onClicking the circle
+// let isClicked = false;
+alternativeArr.forEach((el) => {
+  el.addEventListener("click", function () {
+    const targetedEl = this.children[0];
+    if (arr[targetedEl.id]) {
+      return;
     }
-  }
-  // let n = targetedEl.children.length;
-
-  // const bgColor = window.getComputedStyle(e.target).backgroundColor;
-  // for (let i = 0; i < n; i++) {
-  //   setTimeout(() => {
-  //     e.target.children[i].addEventListener("click", function (ev) {
-  //       const targetedEl = document.getElementById(
-  //         ev.target.getAttribute("data-id")
-  //       );
-  //       if (targetedEl.classList.contains("Hide")) {
-  //         targetedEl.classList.remove("Hide");
-  //         targetedEl.classList.add("Visible");
-  //         targetedEl.style.backgroundColor = bgColor;
-  //         e.target.classList.add("Hide");
-  //         console.log("if");
-  //       } else {
-  //         console.log("else");
-  //         return;
-  //       }
-  //     });
-  //     e.target.children[i].classList.add("Hide");
-  //   }, 1000);
-  // }
-
-  // let n = targetedEl.children.length;
-  // for (let i = 0; i < n; i++) {
-  //   setTimeout(() => {
-  //     targetedEl.children[i].classList.remove("Visible");
-  //     targetedEl.children[i].classList.remove("Hide");
-  //     console.log(targetedEl);
-  //   }, 1000);
-  // }
-};
+    targetedEl.classList.remove("Hide");
+    targetedEl.classList.add("Visible");
+    targetedEl.style.backgroundColor = player1Colr;
+    arr[targetedEl.id] = true;
+    // let n = targetedEl.children.length;
+    // for (let i = 0; i < n; i++) {
+    //   console.log(targetedEl);
+    //   targetedEl.children[i].classList.add("Hide");
+    //   targetedEl.children[i].classList.remove("Visible");
+    // }
+  });
+});
 
 //
 alternativeArr.forEach((el) => {
-  el.addEventListener("mouseleave", mouseLeaveFun);
+  el.addEventListener("mouseleave", function (e) {
+    const targetedEl = this.children[0];
+    if (!arr[targetedEl.id]) {
+      targetedEl.classList.remove("Visible");
+      targetedEl.classList.add("Hide");
+    } else if (arr[targetedEl.id]) {
+      // remove the arrows
+      let n = targetedEl.children.length;
+      for (let i = 0; i < n; i++) {
+        // setTimeout(() => {
+        targetedEl.children[i].classList.remove("Visible");
+        targetedEl.children[i].classList.add("Hide");
+        // }, 5000);
+      }
+    }
+    let n = targetedEl.children.length;
+
+    const bgColor = window.getComputedStyle(targetedEl).backgroundColor;
+    console.log(bgColor);
+    // for (let i = 0; i < n; i++) {
+    //   setTimeout(() => {
+    //     e.target.children[i].addEventListener("click", function (ev) {
+    //       const targetedEl = document.getElementById(
+    //         ev.target.getAttribute("data-id")
+    //       );
+    //       if (targetedEl.classList.contains("Hide")) {
+    //         targetedEl.classList.remove("Hide");
+    //         targetedEl.classList.add("Visible");
+    //         targetedEl.style.backgroundColor = bgColor;
+    //         e.target.classList.add("Hide");
+    //         console.log("if");
+    //       } else {
+    //         console.log("else");
+    //         return;
+    //       }
+    //     });
+    //     e.target.children[i].classList.add("Hide");
+    //   }, 1000);
+    // }
+
+    // let n = targetedEl.children.length;
+    // for (let i = 0; i < n; i++) {
+    //   setTimeout(() => {
+    //     targetedEl.children[i].classList.remove("Visible");
+    //     targetedEl.children[i].classList.remove("Hide");
+    //     console.log(targetedEl);
+    //   }, 1000);
+    // }
+  });
 });
