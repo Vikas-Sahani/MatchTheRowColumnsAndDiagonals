@@ -36,6 +36,7 @@ const alternativeBottomRight_vertical = document.querySelector(
 );
 let cnt = 0;
 let player1Colr = "";
+let player2Colr = "";
 
 const alternativeArr = [
   alternativeTopVertical,
@@ -62,11 +63,11 @@ const arr = [
 ];
 
 // Center Dynamic Background Color
-const clrCntrBgColr = setInterval(function (e) {
+const clrCntrBgColr = setInterval(function () {
   alternativeCenterVertical.style.backgroundColor = `rgb(${Math.floor(
     Math.random() * 255
   )} ${Math.floor(Math.random() * 255)} ${Math.floor(Math.random() * 255)})`;
-}, 100);
+}, 300);
 // end of Center Dynamic Background Color
 
 alternativeCenterVertical.addEventListener("click", function (e) {
@@ -74,9 +75,16 @@ alternativeCenterVertical.addEventListener("click", function (e) {
     return;
   }
   clearInterval(clrCntrBgColr);
+  if (player1Colr === "" && player2Colr === "") {
+    player1Colr = window.getComputedStyle(
+      alternativeCenterVertical
+    ).backgroundColor;
+    alternativeCenterVertical.children[0].style.backgroundColor = player1Colr;
+  } else {
+    P1_P2Colr(this, this.children[0]);
+  }
+  cnt++;
   alternativeCenterVertical.style.backgroundColor = "white";
-  const bgColor = window.getComputedStyle(e.target).backgroundColor;
-  alternativeCenterVertical.children[0].style.backgroundColor = bgColor;
   arr["centerVertical"] = true;
 });
 
@@ -85,9 +93,10 @@ const sideBgColrFun = function () {
   const dynamicBgColor = `rgb(${Math.floor(Math.random() * 255)} ${Math.floor(
     Math.random() * 255
   )} ${Math.floor(Math.random() * 255)})`;
-  player1Colr = dynamicBgColor;
+
+  let clrId;
   for (let i = 0; i < alternativeArr.length - 1; i++) {
-    let clrId = setTimeout(function (e) {
+    clrId = setTimeout(function (e) {
       alternativeArr[i].style.backgroundColor = dynamicBgColor;
     }, i * 500);
 
@@ -114,13 +123,40 @@ alternativeArr.forEach((el) => {
     }
     targetedEl.classList.remove("Hide");
     targetedEl.classList.add("Visible");
-    targetedEl.style.backgroundColor = player1Colr;
+
+    cnt % 2 === 0
+      ? (targetedEl.style.backgroundColor = player1Colr)
+      : (targetedEl.style.backgroundColor = player2Colr);
   });
 });
 
 // what will happen onClicking the circle
-// let isClicked = false;
-alternativeArr.forEach((el) => {
+const P1_P2Colr = function (el, targetedEl) {
+  // condition ? exprIfTrue : exprIfFalse
+  if (cnt === 0 || cnt === 1) {
+    player1Colr == ""
+      ? (player1Colr = window.getComputedStyle(el).backgroundColor)
+      : (player2Colr = window.getComputedStyle(el).backgroundColor);
+  }
+
+  if (cnt % 2 === 0) {
+    targetedEl.style.backgroundColor = player1Colr;
+  } else {
+    targetedEl.style.backgroundColor = player2Colr;
+    if (cnt === 1) {
+      clearTimeout(clrSideBgColr);
+      clearTimeout(clrCntrBgColr);
+    }
+  }
+  console.log(player1Colr);
+  console.log(player2Colr);
+};
+
+alternativeArr.forEach((el, idx) => {
+  if (idx === 8) {
+    console.log(idx);
+    return;
+  }
   el.addEventListener("click", function () {
     const targetedEl = this.children[0];
     if (arr[targetedEl.id]) {
@@ -128,8 +164,10 @@ alternativeArr.forEach((el) => {
     }
     targetedEl.classList.remove("Hide");
     targetedEl.classList.add("Visible");
-    targetedEl.style.backgroundColor = player1Colr;
     arr[targetedEl.id] = true;
+
+    P1_P2Colr(el, targetedEl);
+    cnt++;
     // let n = targetedEl.children.length;
     // for (let i = 0; i < n; i++) {
     //   console.log(targetedEl);
@@ -158,8 +196,7 @@ alternativeArr.forEach((el) => {
     }
     let n = targetedEl.children.length;
 
-    const bgColor = window.getComputedStyle(targetedEl).backgroundColor;
-    console.log(bgColor);
+    // const bgColor = window.getComputedStyle(targetedEl).backgroundColor;
     // for (let i = 0; i < n; i++) {
     //   setTimeout(() => {
     //     e.target.children[i].addEventListener("click", function (ev) {
