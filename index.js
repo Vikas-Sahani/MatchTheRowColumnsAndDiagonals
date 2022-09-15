@@ -40,11 +40,11 @@ let player2Colr = "";
 
 const alternativeArr = [
   alternativeTopVertical,
-  alternativeBottomRight_vertical,
-  alternativeRightHorizontal,
-  alternativeBottomLeft_vertical,
-  alternativeBottomVertical,
   alternativeTopRight_vertical,
+  alternativeRightHorizontal,
+  alternativeBottomRight_vertical,
+  alternativeBottomVertical,
+  alternativeBottomLeft_vertical,
   alternativeLeftHorizontal,
   alternativeTopLeft_vertical,
   alternativeCenterVertical,
@@ -52,15 +52,34 @@ const alternativeArr = [
 
 const arr = [
   { topVertical: false },
-  { bottomRight_vertical: false },
-  { rightHorizontal: false },
-  { bottomLeft_vertical: false },
-  { bottomVertical: false },
   { topRight_vertical: false },
+  { rightHorizontal: false },
+  { bottomRight_vertical: false },
+  { bottomVertical: false },
+  { bottomLeft_vertical: false },
   { leftHorizontal: false },
   { topLeft_vertical: false },
   { centerVertical: false },
 ];
+
+// selecting color for player1 and player2 and removing dynamic color effect
+const P1_P2Colr = function (el, targetedEl) {
+  if (cnt === 0 || cnt === 1) {
+    player1Colr == ""
+      ? (player1Colr = window.getComputedStyle(el).backgroundColor)
+      : (player2Colr = window.getComputedStyle(el).backgroundColor);
+  }
+
+  if (cnt % 2 === 0) {
+    targetedEl.style.backgroundColor = player1Colr;
+  } else {
+    targetedEl.style.backgroundColor = player2Colr;
+    if (cnt === 1) {
+      clearTimeout(clrSideBgColr);
+      clearTimeout(clrCntrBgColr);
+    }
+  }
+};
 
 // Center Dynamic Background Color
 const clrCntrBgColr = setInterval(function () {
@@ -94,9 +113,8 @@ const sideBgColrFun = function () {
     Math.random() * 255
   )} ${Math.floor(Math.random() * 255)})`;
 
-  let clrId;
-  for (let i = 0; i < alternativeArr.length - 1; i++) {
-    clrId = setTimeout(function (e) {
+  for (let i = 0; i < alternativeArr.length; i++) {
+    let clrId = setTimeout(function (e) {
       alternativeArr[i].style.backgroundColor = dynamicBgColor;
     }, i * 500);
 
@@ -118,7 +136,7 @@ alternativeArr.forEach((el) => {
       targetedEl.children[i].classList.remove("Hide");
       targetedEl.children[i].classList.add("Visible");
     }
-    if (arr[targetedEl.id]) {
+    if (arr[targetedEl.id] || cnt > 5) {
       return;
     }
     targetedEl.classList.remove("Hide");
@@ -131,35 +149,13 @@ alternativeArr.forEach((el) => {
 });
 
 // what will happen onClicking the circle
-const P1_P2Colr = function (el, targetedEl) {
-  // condition ? exprIfTrue : exprIfFalse
-  if (cnt === 0 || cnt === 1) {
-    player1Colr == ""
-      ? (player1Colr = window.getComputedStyle(el).backgroundColor)
-      : (player2Colr = window.getComputedStyle(el).backgroundColor);
-  }
-
-  if (cnt % 2 === 0) {
-    targetedEl.style.backgroundColor = player1Colr;
-  } else {
-    targetedEl.style.backgroundColor = player2Colr;
-    if (cnt === 1) {
-      clearTimeout(clrSideBgColr);
-      clearTimeout(clrCntrBgColr);
-    }
-  }
-  console.log(player1Colr);
-  console.log(player2Colr);
-};
-
 alternativeArr.forEach((el, idx) => {
   if (idx === 8) {
-    console.log(idx);
     return;
   }
   el.addEventListener("click", function () {
     const targetedEl = this.children[0];
-    if (arr[targetedEl.id]) {
+    if (arr[targetedEl.id] || cnt > 5) {
       return;
     }
     targetedEl.classList.remove("Hide");
@@ -168,16 +164,9 @@ alternativeArr.forEach((el, idx) => {
 
     P1_P2Colr(el, targetedEl);
     cnt++;
-    // let n = targetedEl.children.length;
-    // for (let i = 0; i < n; i++) {
-    //   console.log(targetedEl);
-    //   targetedEl.children[i].classList.add("Hide");
-    //   targetedEl.children[i].classList.remove("Visible");
-    // }
   });
 });
 
-//
 alternativeArr.forEach((el) => {
   el.addEventListener("mouseleave", function (e) {
     const targetedEl = this.children[0];
@@ -188,43 +177,38 @@ alternativeArr.forEach((el) => {
       // remove the arrows
       let n = targetedEl.children.length;
       for (let i = 0; i < n; i++) {
-        // setTimeout(() => {
-        targetedEl.children[i].classList.remove("Visible");
-        targetedEl.children[i].classList.add("Hide");
-        // }, 5000);
+        setTimeout(() => {
+          targetedEl.children[i].classList.remove("Visible");
+          targetedEl.children[i].classList.add("Hide");
+        }, 3000);
       }
     }
-    let n = targetedEl.children.length;
-
-    // const bgColor = window.getComputedStyle(targetedEl).backgroundColor;
-    // for (let i = 0; i < n; i++) {
-    //   setTimeout(() => {
-    //     e.target.children[i].addEventListener("click", function (ev) {
-    //       const targetedEl = document.getElementById(
-    //         ev.target.getAttribute("data-id")
-    //       );
-    //       if (targetedEl.classList.contains("Hide")) {
-    //         targetedEl.classList.remove("Hide");
-    //         targetedEl.classList.add("Visible");
-    //         targetedEl.style.backgroundColor = bgColor;
-    //         e.target.classList.add("Hide");
-    //         console.log("if");
-    //       } else {
-    //         console.log("else");
-    //         return;
-    //       }
-    //     });
-    //     e.target.children[i].classList.add("Hide");
-    //   }, 1000);
-    // }
-
-    // let n = targetedEl.children.length;
-    // for (let i = 0; i < n; i++) {
-    //   setTimeout(() => {
-    //     targetedEl.children[i].classList.remove("Visible");
-    //     targetedEl.children[i].classList.remove("Hide");
-    //     console.log(targetedEl);
-    //   }, 1000);
-    // }
   });
+});
+
+alternativeArr.forEach((el) => {
+  let currEl = el.children[0];
+  let n = currEl.children.length;
+  for (let i = 0; i < n; i++) {
+    currEl.children[i].addEventListener("click", function (e) {
+      const targetedEl = document.getElementById(
+        e.target.getAttribute("data-id")
+      );
+
+      if (targetedEl.style.backgroundColor !== "") {
+        return;
+      }
+      targetedEl.style.backgroundColor =
+        window.getComputedStyle(currEl).backgroundColor;
+      targetedEl.classList.remove("Hide");
+      targetedEl.classList.add("Visible");
+      arr[`${targetedEl}`] = true;
+
+      currEl.style.backgroundColor = "";
+      currEl.classList.remove("Visible");
+      currEl.classList.add("Hide");
+      arr[`${currEl}`] = false;
+      console.log(arr);
+    });
+  }
 });

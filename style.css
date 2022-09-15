@@ -133,4 +133,5 @@ body {
   .West,.East,.South,.North,.North_West,.South_West,.North_East,.South_East{
     font-size: 5vh;
     position: relative;
+    width: 5vh;
   }
