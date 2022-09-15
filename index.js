@@ -1,3 +1,7 @@
+window.alert(
+  "after showing the game Board select color for player1 and player2(if you select the color from ceter circle it's nice and easy to pick but you if you select from side circles then you only select the color when wanted side color is colored which is litle bit hard initially.)"
+);
+
 const topVertical = document.querySelector("#topVertical");
 const alternativeTopVertical = document.querySelector(
   "#alternativeTopVertical"
@@ -124,6 +128,7 @@ const sideBgColrFun = function () {
     }, i * 500 + 500);
   }
 };
+
 sideBgColrFun();
 const clrSideBgColr = setInterval(sideBgColrFun, 4000);
 // end of Side Dynamic Background Color
@@ -136,7 +141,7 @@ alternativeArr.forEach((el) => {
       targetedEl.children[i].classList.remove("Hide");
       targetedEl.children[i].classList.add("Visible");
     }
-    if (arr[targetedEl.id] || cnt > 5) {
+    if (arr[targetedEl.id]) {
       return;
     }
     targetedEl.classList.remove("Hide");
@@ -164,6 +169,16 @@ alternativeArr.forEach((el, idx) => {
 
     P1_P2Colr(el, targetedEl);
     cnt++;
+    if (player1Colr !== "" && player2Colr !== "" && cnt === 3) {
+      window.alert(
+        "after selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
+      );
+    }
+    if (cnt === 6) {
+      window.alert(
+        "now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
+      );
+    }
   });
 });
 
@@ -195,19 +210,24 @@ alternativeArr.forEach((el) => {
         e.target.getAttribute("data-id")
       );
 
-      if (targetedEl.style.backgroundColor !== "") {
+      if (cnt <= 5) {
         return;
       }
       targetedEl.style.backgroundColor =
         window.getComputedStyle(currEl).backgroundColor;
       targetedEl.classList.remove("Hide");
       targetedEl.classList.add("Visible");
-      arr[`${targetedEl}`] = true;
+      arr[targetedEl.id] = true;
+      let m = targetedEl.children.length;
+      for (let j = 0; i < m; i++) {
+        targetedEl.children[i].classList.remove("Visible");
+        targetedEl.children[i].classList.add("Hide");
+      }
 
       currEl.style.backgroundColor = "";
       currEl.classList.remove("Visible");
       currEl.classList.add("Hide");
-      arr[`${currEl}`] = false;
+      arr[currEl.id] = false;
       console.log(arr);
     });
   }
