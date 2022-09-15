@@ -54,6 +54,32 @@ const alternativeArr = [
   alternativeCenterVertical,
 ];
 
+const isWin = [
+  [topLeft_vertical, leftHorizontal, bottomLeft_vertical],
+  [topVertical, centerVertical, bottomLeft_vertical],
+  [topRight_vertical, rightHorizontal, bottomRight_vertical],
+  [topLeft_vertical, topVertical, topRight_vertical],
+  [leftHorizontal, centerVertical, rightHorizontal],
+  [bottomLeft_vertical, bottomVertical, bottomRight_vertical],
+  [topLeft_vertical, centerVertical, bottomRight_vertical],
+  [topRight_vertical, centerVertical, bottomLeft_vertical],
+];
+console.log(isWin[0]);
+
+const winFunc = function () {
+  for (let i = 0; i < isWin.length; i++) {
+    if (isWin[i].every((el) => el.style.backgroundColor === player1Colr)) {
+      window.alert("player1 wins");
+    } else if (
+      isWin[i].every((el) => el.style.backgroundColor === player2Colr)
+    ) {
+      window.alert("player2 wins");
+    }
+  }
+};
+
+// setInterval(winFunc, 100);
+
 const arr = [
   { topVertical: false },
   { topRight_vertical: false },
@@ -228,7 +254,8 @@ alternativeArr.forEach((el) => {
       currEl.classList.remove("Visible");
       currEl.classList.add("Hide");
       arr[currEl.id] = false;
-      console.log(arr);
+
+      setTimeout(winFunc, 100);
     });
   }
 });
