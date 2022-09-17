@@ -1,4 +1,8 @@
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -19,8 +23,8 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 20%;
-    height: 95vh;
-    width: 95vh;
+    height: 90vh;
+    width: 90vh;
     border: 2px solid black;
   }
 
@@ -54,7 +58,7 @@ body {
     align-items: center;
     border-radius: 50px;
     height: 10vh;
-    width: 90vh;
+    width: 80vh;
     border: 2px solid red;
   }
   
@@ -64,7 +68,7 @@ body {
     align-items: center;
     border-radius: 50px;
     flex-wrap: wrap;
-    height: 90vh;
+    height: 80vh;
     width: 10vh;
     border: 2px solid rgb(0, 4, 255);
     position: absolute;
@@ -96,10 +100,10 @@ body {
     justify-content: space-between;
     align-items: center;
     border-radius: 50px;
-    border: 2px solid rgb(0, 255, 217);
+    border: 2px solid rgba(57, 163, 81, 0.758);
     transform: rotate(45deg);
     height: 10vh;
-    width: 115vh;
+    width: 95vh;
     position: absolute;
   }
 
@@ -108,10 +112,10 @@ body {
     justify-content: space-between;
     align-items: center;
     border-radius: 50px;
-    border: 2px solid rgb(225, 61, 135);
+    border: 2px solid rgb(65, 214, 134);
     transform: rotate(-45deg);
     height: 10vh;
-    width: 115vh;
+    width: 95vh;
     position: absolute;
   }
   

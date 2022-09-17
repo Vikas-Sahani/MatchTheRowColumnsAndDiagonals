@@ -1,5 +1,5 @@
 window.alert(
-  "after showing the game Board select color for player1 and player2(if you select the color from ceter circle it's nice and easy to pick but you if you select from side circles then you only select the color when wanted side color is colored which is litle bit hard initially.)"
+  "after showing the game Board select color for player1 and player2(if you select the color from center circle it's nice and easy to pick but you if you select from side circles then you only select the color when wanted side color is colored which is litle bit hard initially.)"
 );
 
 const topVertical = document.querySelector("#topVertical");
@@ -64,7 +64,6 @@ const isWin = [
   [topLeft_vertical, centerVertical, bottomRight_vertical],
   [topRight_vertical, centerVertical, bottomLeft_vertical],
 ];
-console.log(isWin[0]);
 
 const winFunc = function () {
   for (let i = 0; i < isWin.length; i++) {
@@ -77,8 +76,6 @@ const winFunc = function () {
     }
   }
 };
-
-// setInterval(winFunc, 100);
 
 const arr = [
   { topVertical: false },
