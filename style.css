@@ -1,21 +1,21 @@
 body {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    height: 100vh;
-    width: 100vh;
+    height: 98vh;
+    width: 214vh;
+    /* border: 2px solid red; */
   }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-      monospace;
+
+  .left{
+    flex:3;
   }
 
   .container{
@@ -23,8 +23,8 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 20%;
-    height: 90vh;
-    width: 90vh;
+    height: 88vh;
+    width: 88vh;
     border: 2px solid black;
   }
 
@@ -46,7 +46,6 @@ body {
   #topLeft_vertical,#bottomLeft_vertical,
   #topRight_vertical,#bottomRight_vertical{
     border: 2px solid blueviolet;
-    /* background-color: teal; */
     height: 8vh;
     width: 8vh;
     border-radius: 50%;
@@ -68,7 +67,7 @@ body {
     align-items: center;
     border-radius: 50px;
     flex-wrap: wrap;
-    height: 80vh;
+    height: 75vh;
     width: 10vh;
     border: 2px solid rgb(0, 4, 255);
     position: absolute;
@@ -138,4 +137,23 @@ body {
     font-size: 5vh;
     position: relative;
     width: 5vh;
+  }
+
+  .rules{
+    flex:1;
+    align-self: flex-start;
+  }
+
+  @media screen and (max-width: 480px) {
+    body {
+      background-color: lightgreen;
+      height: 700px;
+      justify-content: space-around;
+    }
+    .container{height:63vh; width:63vh;}
+    #vertical{height:60vh;}
+    #alternativeCenterVertical{height:25vh; width:25vh;}
+    #horizontal{width:60vh;}
+    #left_vertical{width:60vh;}
+    #right_vertical{width:60vh;}
   }

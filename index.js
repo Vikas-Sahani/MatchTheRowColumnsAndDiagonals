@@ -1,6 +1,9 @@
-window.alert(
-  "after showing the game Board select color for player1 and player2(if you select the color from center circle it's nice and easy to pick but you if you select from side circles then you only select the color when wanted side color is colored which is litle bit hard initially.)"
-);
+const createRule = function (ruleContent) {
+  const ul = document.querySelector(".rules > ul");
+  const li = document.createElement("li");
+  li.textContent = ruleContent;
+  ul.appendChild(li);
+};
 
 const topVertical = document.querySelector("#topVertical");
 const alternativeTopVertical = document.querySelector(
@@ -56,7 +59,7 @@ const alternativeArr = [
 
 const isWin = [
   [topLeft_vertical, leftHorizontal, bottomLeft_vertical],
-  [topVertical, centerVertical, bottomLeft_vertical],
+  [topVertical, centerVertical, bottomVertical],
   [topRight_vertical, rightHorizontal, bottomRight_vertical],
   [topLeft_vertical, topVertical, topRight_vertical],
   [leftHorizontal, centerVertical, rightHorizontal],
@@ -67,7 +70,15 @@ const isWin = [
 
 const winFunc = function () {
   for (let i = 0; i < isWin.length; i++) {
-    if (isWin[i].every((el) => el.style.backgroundColor === player1Colr)) {
+    if (
+      isWin[i].every((el) => {
+        console.log(el.id + " " + i);
+        console.log(el.style.backgroundColor);
+
+        return el.style.backgroundColor === player1Colr;
+      })
+    ) {
+      console.log(i);
       window.alert("player1 wins");
     } else if (
       isWin[i].every((el) => el.style.backgroundColor === player2Colr)
@@ -77,6 +88,7 @@ const winFunc = function () {
   }
 };
 
+// this array will tell us that which one is selected or not
 const arr = [
   { topVertical: false },
   { topRight_vertical: false },
@@ -92,9 +104,13 @@ const arr = [
 // selecting color for player1 and player2 and removing dynamic color effect
 const P1_P2Colr = function (el, targetedEl) {
   if (cnt === 0 || cnt === 1) {
-    player1Colr == ""
-      ? (player1Colr = window.getComputedStyle(el).backgroundColor)
-      : (player2Colr = window.getComputedStyle(el).backgroundColor);
+    if (player1Colr == "") {
+      player1Colr = window.getComputedStyle(el).backgroundColor;
+    } else {
+      player2Colr = window.getComputedStyle(el).backgroundColor;
+      // clearTimeout(clrSideBgColr)        //how to add multiple line in ternary operator
+      // clearTimeout(clrCntrBgColr)
+    }
   }
 
   if (cnt % 2 === 0) {
@@ -116,7 +132,8 @@ const clrCntrBgColr = setInterval(function () {
 }, 300);
 // end of Center Dynamic Background Color
 
-alternativeCenterVertical.addEventListener("click", function (e) {
+// selecting color for P1 & P2 from center
+alternativeCenterVertical.addEventListener("click", function () {
   if (arr["centerVertical"]) {
     return;
   }
@@ -176,7 +193,7 @@ alternativeArr.forEach((el) => {
   });
 });
 
-// what will happen onClicking the circle
+// what will happen onClicking the circles
 alternativeArr.forEach((el, idx) => {
   if (idx === 8) {
     return;
@@ -196,9 +213,15 @@ alternativeArr.forEach((el, idx) => {
       window.alert(
         "after selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
       );
+      createRule(
+        "after selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
+      );
     }
     if (cnt === 6) {
       window.alert(
+        "now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
+      );
+      createRule(
         "now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
       );
     }
