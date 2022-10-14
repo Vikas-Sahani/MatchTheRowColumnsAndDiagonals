@@ -115,7 +115,7 @@ const P1_P2Colr = function (el, targetedEl) {
     }
   }
 
-  if (cnt % 2 === 0) {
+  if (!isPlyr1Trn) {
     targetedEl.style.backgroundColor = player1Colr;
   } else {
     targetedEl.style.backgroundColor = player2Colr;
