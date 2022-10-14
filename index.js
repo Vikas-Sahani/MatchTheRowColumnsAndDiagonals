@@ -44,6 +44,8 @@ const alternativeBottomRight_vertical = document.querySelector(
 let cnt = 0;
 let player1Colr = "";
 let player2Colr = "";
+let isPlyr1Trn = false;
+let isPlyr2Trn = false;
 
 const alternativeArr = [
   alternativeTopVertical,
@@ -103,7 +105,7 @@ const arr = [
 
 // selecting color for player1 and player2 and removing dynamic color effect
 const P1_P2Colr = function (el, targetedEl) {
-  if (cnt === 0 || cnt === 1) {
+  if (!isPlyr1Trn || !isPlyr2Trn) {
     if (player1Colr == "") {
       player1Colr = window.getComputedStyle(el).backgroundColor;
     } else {
@@ -173,6 +175,7 @@ sideBgColrFun();
 const clrSideBgColr = setInterval(sideBgColrFun, 4000);
 // end of Side Dynamic Background Color
 
+// onMouseEntering the circle, show arrows and circle's color for which is it going to fill
 alternativeArr.forEach((el) => {
   el.addEventListener("mouseenter", function () {
     const targetedEl = this.children[0];
@@ -193,15 +196,15 @@ alternativeArr.forEach((el) => {
   });
 });
 
-// what will happen onClicking the circles
+// what will happen onClicking the circles(notifying that circle is selected or not and showing msg) accept ceter circle
 alternativeArr.forEach((el, idx) => {
   if (idx === 8) {
-    return;
+    return; //we don't want to handle center in this loop
   }
   el.addEventListener("click", function () {
     const targetedEl = this.children[0];
     if (arr[targetedEl.id] || cnt > 5) {
-      return;
+      return; //circle is selected or cnt>5 then return
     }
     targetedEl.classList.remove("Hide");
     targetedEl.classList.add("Visible");
@@ -209,25 +212,26 @@ alternativeArr.forEach((el, idx) => {
 
     P1_P2Colr(el, targetedEl);
     cnt++;
-    if (player1Colr !== "" && player2Colr !== "" && cnt === 3) {
+    if (player1Colr !== "" && player2Colr !== "" && cnt === 2) {
       window.alert(
-        "after selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
+        "After selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
       );
       createRule(
-        "after selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
+        "After selecting the color for player1 and player2 you have to fill atleast 6 circles of your choice"
       );
     }
     if (cnt === 6) {
       window.alert(
-        "now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
+        "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
       );
       createRule(
-        "now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
+        "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
       );
     }
   });
 });
 
+// onMouseLeaving the circle, check if {circle is not selected then hide} else if {circle is selected then onMouseLeaving hide the arrows}
 alternativeArr.forEach((el) => {
   el.addEventListener("mouseleave", function (e) {
     const targetedEl = this.children[0];
@@ -247,27 +251,28 @@ alternativeArr.forEach((el) => {
   });
 });
 
+// onCLicking arrow, moving currEL to targedEL and checking for winning player
 alternativeArr.forEach((el) => {
   let currEl = el.children[0];
   let n = currEl.children.length;
   for (let i = 0; i < n; i++) {
     currEl.children[i].addEventListener("click", function (e) {
+      if (cnt <= 5) {
+        return; // untli all 6 circles are not filled, don't do this functionallity(moving currEL to targedEL)
+      }
+
       const targetedEl = document.getElementById(
         e.target.getAttribute("data-id")
       );
-
-      if (cnt <= 5) {
-        return;
-      }
       targetedEl.style.backgroundColor =
         window.getComputedStyle(currEl).backgroundColor;
       targetedEl.classList.remove("Hide");
       targetedEl.classList.add("Visible");
       arr[targetedEl.id] = true;
       let m = targetedEl.children.length;
-      for (let j = 0; i < m; i++) {
-        targetedEl.children[i].classList.remove("Visible");
-        targetedEl.children[i].classList.add("Hide");
+      for (let j = 0; j < m; j++) {
+        targetedEl.children[j].classList.remove("Visible");
+        targetedEl.children[j].classList.add("Hide");
       }
 
       currEl.style.backgroundColor = "";
