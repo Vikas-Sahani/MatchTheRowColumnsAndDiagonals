@@ -44,7 +44,7 @@ const alternativeBottomRight_vertical = document.querySelector(
 let cnt = 0;
 let player1Colr = "";
 let player2Colr = "";
-let isPlyr1Trn = false;
+let isPlyr1Trn = true;
 let isPlyr2Trn = false;
 
 const alternativeArr = [
@@ -74,9 +74,6 @@ const winFunc = function () {
   for (let i = 0; i < isWin.length; i++) {
     if (
       isWin[i].every((el) => {
-        console.log(el.id + " " + i);
-        console.log(el.style.backgroundColor);
-
         return el.style.backgroundColor === player1Colr;
       })
     ) {
@@ -105,25 +102,23 @@ const arr = [
 
 // selecting color for player1 and player2 and removing dynamic color effect
 const P1_P2Colr = function (el, targetedEl) {
-  if (!isPlyr1Trn || !isPlyr2Trn) {
-    if (player1Colr == "") {
-      player1Colr = window.getComputedStyle(el).backgroundColor;
-    } else {
-      player2Colr = window.getComputedStyle(el).backgroundColor;
-      // clearTimeout(clrSideBgColr)        //how to add multiple line in ternary operator
-      // clearTimeout(clrCntrBgColr)
-    }
+  if (isPlyr1Trn && player1Colr == "") {
+    player1Colr = window.getComputedStyle(el).backgroundColor;
+  } else if (isPlyr2Trn && player2Colr == "") {
+    player2Colr = window.getComputedStyle(el).backgroundColor;
+    // clearTimeout(clrSideBgColr)        //how to add multiple line in ternary operator
+    // clearTimeout(clrCntrBgColr)
   }
 
-  if (!isPlyr1Trn) {
+  if (isPlyr1Trn) {
     targetedEl.style.backgroundColor = player1Colr;
-  } else {
+  } else if (isPlyr2Trn) {
     targetedEl.style.backgroundColor = player2Colr;
-    if (cnt === 1) {
-      clearTimeout(clrSideBgColr);
-      clearTimeout(clrCntrBgColr);
-    }
+    clearTimeout(clrSideBgColr);
+    clearTimeout(clrCntrBgColr);
   }
+  isPlyr1Trn ? (isPlyr1Trn = false) : (isPlyr1Trn = true);
+  isPlyr2Trn ? (isPlyr2Trn = false) : (isPlyr2Trn = true);
 };
 
 // Center Dynamic Background Color
@@ -145,6 +140,8 @@ alternativeCenterVertical.addEventListener("click", function () {
       alternativeCenterVertical
     ).backgroundColor;
     alternativeCenterVertical.children[0].style.backgroundColor = player1Colr;
+    isPlyr1Trn ? (isPlyr1Trn = false) : (isPlyr1Trn = true);
+    isPlyr2Trn ? (isPlyr2Trn = false) : (isPlyr2Trn = true);
   } else {
     P1_P2Colr(this, this.children[0]);
   }
@@ -175,24 +172,33 @@ sideBgColrFun();
 const clrSideBgColr = setInterval(sideBgColrFun, 4000);
 // end of Side Dynamic Background Color
 
+// Show arrows
+const showArrow = function (targetedEl) {
+  const n = targetedEl.children.length;
+  for (let i = 0; i < n; i++) {
+    targetedEl.children[i].classList.remove("Hide");
+    targetedEl.children[i].classList.add("Visible");
+  }
+};
+
 // onMouseEntering the circle, show arrows and circle's color for which is it going to fill
 alternativeArr.forEach((el) => {
   el.addEventListener("mouseenter", function () {
     const targetedEl = this.children[0];
-    const n = targetedEl.children.length;
-    for (let i = 0; i < n; i++) {
-      targetedEl.children[i].classList.remove("Hide");
-      targetedEl.children[i].classList.add("Visible");
-    }
+
+    showArrow(targetedEl);
     if (arr[targetedEl.id]) {
       return;
     }
+
     targetedEl.classList.remove("Hide");
     targetedEl.classList.add("Visible");
 
-    cnt % 2 === 0
-      ? (targetedEl.style.backgroundColor = player1Colr)
-      : (targetedEl.style.backgroundColor = player2Colr);
+    if (isPlyr1Trn) {
+      targetedEl.style.backgroundColor = player1Colr;
+    } else if (isPlyr2Trn) {
+      targetedEl.style.backgroundColor = player2Colr;
+    }
   });
 });
 
@@ -251,7 +257,7 @@ alternativeArr.forEach((el) => {
   });
 });
 
-// onCLicking arrow, moving currEL to targedEL and checking for winning player
+// onCLicking arrow, moving currEl to targedEL and checking for winning player
 alternativeArr.forEach((el) => {
   let currEl = el.children[0];
   let n = currEl.children.length;
@@ -264,23 +270,37 @@ alternativeArr.forEach((el) => {
       const targetedEl = document.getElementById(
         e.target.getAttribute("data-id")
       );
-      targetedEl.style.backgroundColor =
-        window.getComputedStyle(currEl).backgroundColor;
-      targetedEl.classList.remove("Hide");
-      targetedEl.classList.add("Visible");
-      arr[targetedEl.id] = true;
-      let m = targetedEl.children.length;
-      for (let j = 0; j < m; j++) {
-        targetedEl.children[j].classList.remove("Visible");
-        targetedEl.children[j].classList.add("Hide");
-      }
 
-      currEl.style.backgroundColor = "";
-      currEl.classList.remove("Visible");
-      currEl.classList.add("Hide");
-      arr[currEl.id] = false;
+      if (isPlyr1Trn && player1Colr === currEl.style.backgroundColor) {
+        //for understanding this if-else think about this (if isPlyr1Trn = true & player2Colr == currEl.style.backgroundColor) which is wrong
+        swapFun(targetedEl, currEl);
+      } else if (isPlyr2Trn && player2Colr === currEl.style.backgroundColor) {
+        swapFun(targetedEl, currEl);
+      }
 
       setTimeout(winFunc, 100);
     });
   }
 });
+
+// (simulating) swap function
+const swapFun = function (targetedEl, currEl) {
+  targetedEl.style.backgroundColor =
+    window.getComputedStyle(currEl).backgroundColor;
+  targetedEl.classList.remove("Hide");
+  targetedEl.classList.add("Visible");
+  arr[targetedEl.id] = true;
+  let m = targetedEl.children.length;
+  for (let j = 0; j < m; j++) {
+    targetedEl.children[j].classList.remove("Visible");
+    targetedEl.children[j].classList.add("Hide");
+  }
+
+  currEl.style.backgroundColor = "";
+  currEl.classList.remove("Visible");
+  currEl.classList.add("Hide");
+  arr[currEl.id] = false;
+
+  isPlyr1Trn ? (isPlyr1Trn = false) : (isPlyr1Trn = true);
+  isPlyr2Trn ? (isPlyr2Trn = false) : (isPlyr2Trn = true);
+};
