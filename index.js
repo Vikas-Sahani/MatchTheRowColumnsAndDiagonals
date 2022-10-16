@@ -78,15 +78,12 @@ const winFunc = function () {
       })
     ) {
       window.alert("player1 wins");
-      // location.reload();
+      location.reload();
     } else if (
       isWin[i].every((el) => el.style.backgroundColor === player2Colr)
     ) {
-      console.log(
-        i + " " + isWin[i][0].id + " " + isWin[i][1].id + " " + isWin[i][2].id
-      );
       window.alert("player2 wins");
-      // location.reload();
+      location.reload();
     }
   }
 };
@@ -220,7 +217,6 @@ alternativeArr.forEach((el, idx) => {
     targetedEl.classList.add("Visible");
     arr[targetedEl.id] = true;
 
-    console.log(targetedEl.id + " P1" + isPlyr1Trn);
     P1_P2Colr(el, targetedEl);
     cnt++;
     if (player1Colr !== "" && player2Colr !== "" && cnt === 2) {
