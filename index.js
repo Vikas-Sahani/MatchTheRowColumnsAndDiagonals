@@ -77,12 +77,16 @@ const winFunc = function () {
         return el.style.backgroundColor === player1Colr;
       })
     ) {
-      console.log(i);
       window.alert("player1 wins");
+      // location.reload();
     } else if (
       isWin[i].every((el) => el.style.backgroundColor === player2Colr)
     ) {
+      console.log(
+        i + " " + isWin[i][0].id + " " + isWin[i][1].id + " " + isWin[i][2].id
+      );
       window.alert("player2 wins");
+      // location.reload();
     }
   }
 };
@@ -216,6 +220,7 @@ alternativeArr.forEach((el, idx) => {
     targetedEl.classList.add("Visible");
     arr[targetedEl.id] = true;
 
+    console.log(targetedEl.id + " P1" + isPlyr1Trn);
     P1_P2Colr(el, targetedEl);
     cnt++;
     if (player1Colr !== "" && player2Colr !== "" && cnt === 2) {
@@ -234,6 +239,9 @@ alternativeArr.forEach((el, idx) => {
         "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
       );
     }
+    if (cnt != 1) {
+      winFunc();
+    }
   });
 });
 
@@ -244,6 +252,7 @@ alternativeArr.forEach((el) => {
     if (!arr[targetedEl.id]) {
       targetedEl.classList.remove("Visible");
       targetedEl.classList.add("Hide");
+      targetedEl.style.backgroundColor = "";
     } else if (arr[targetedEl.id]) {
       // remove the arrows
       let n = targetedEl.children.length;
