@@ -229,10 +229,10 @@ alternativeArr.forEach((el, idx) => {
     }
     if (cnt === 6) {
       window.alert(
-        "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
+        "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors, in same row, same column or same diaganlly."
       );
       createRule(
-        "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors in same row, column or diaganlly"
+        "Now finally let's play the game by clicking the arrows and move the color from 1 circle to other and try to match the colors, in same row, same column or same diaganlly."
       );
     }
     if (cnt != 1) {
